@@ -1,0 +1,55 @@
+---
+apiVersion: helm.toolkit.fluxcd.io/v2beta1
+kind: HelmRelease
+metadata:
+  name: prometheus
+  namespace: monitoring
+spec:
+  chart:
+    spec:
+      chart: prometheus-community/kube-prometheus-stack
+      reconcileStrategy: ChartVersion
+      sourceRef:
+        kind: HelmRepository
+        name: prometheus-community
+  interval: 1m0s
+  values:
+    grafana:
+      env:
+        GF_PLUGINS_ALLOW_LOADING_UNSIGNED_PLUGINS: tribe-29-checkmk-datasource
+      extraInitContainers:
+      - command:
+        - sh
+        - -c
+        - echo "installing checkmk plugin"; mkdir -p /var/lib/grafana/plugins; cd
+          /var/lib/grafana/plugins; rm -rf grafana-checkmk-datasource; git clone https://github.com/tribe29/grafana-checkmk-datasource
+        image: alpine/git
+        imagePullPolicy: Always
+        name: grafana-plugin-install
+        securityContext:
+          runAsNonRoot: true
+          runAsUser: 472
+        volumeMounts:
+        - mountPath: /var/lib/grafana
+          name: storage
+      ingress:
+        enabled: true
+        hosts:
+        - monitoring.k3s.lab.stelb.de
+        path: /grafana
+        tls:
+        - hosts:
+          - monitoring.k3s.lab.stelb.de
+      persistence:
+        enabled: true
+    prometheus:
+      prometheusSpec:
+        storageSpec:
+          volumeClaimTemplate:
+            spec:
+              accessModes:
+              - ReadWriteOnce
+              resources:
+                requests:
+                  storage: 100Gi
+
