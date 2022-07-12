@@ -40,6 +40,10 @@ spec:
         tls:
         - hosts:
           - monitoring.k3s.lab.stelb.de
+        annotations:
+          kubernetes.io/ingress.class: traefik
+          ingress.kubernetes.io/ssl-redirect: "true"
+          cert-manager.io/cluster-issuer: letsencrypt-prod
       persistence:
         enabled: true
 
