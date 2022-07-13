@@ -62,4 +62,17 @@ spec:
               resources:
                 requests:
                   storage: 100Gi
+      ingress:
+        enabled: true
+        hosts:
+        - prometheus.k3s.lab.stelb.de
+        path: /
+        tls:
+        - hosts:
+          - prometheus.k3s.lab.stelb.de
+          secretName: prometheus-lab-crt
+        annotations:
+          kubernetes.io/ingress.class: traefik
+          ingress.kubernetes.io/ssl-redirect: "true"
+          cert-manager.io/cluster-issuer: letsencrypt-prod
 
