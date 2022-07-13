@@ -1,9 +1,11 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
+  namespace: tado
+  name: tado-exporter
   labels:
     app: tado-exporter
-  name: tado-exporter
+
 spec:
   replicas: 1
   selector:
