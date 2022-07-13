@@ -35,12 +35,12 @@ spec:
       ingress:
         enabled: true
         hosts:
-        - monitoring.k3s.lab.stelb.de
-        path: /grafana
+        - grafana.k3s.lab.stelb.de
+        path: /
         tls:
         - hosts:
-          - monitoring.k3s.lab.stelb.de
-          secretName: monitoring-lab-crt
+          - grafana.k3s.lab.stelb.de
+          secretName: grafana-lab-crt
         annotations:
           kubernetes.io/ingress.class: traefik
           ingress.kubernetes.io/ssl-redirect: "true"
