@@ -1,0 +1,37 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: tado-exporter
+  name: tado-exporter
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: tado-exporter
+  strategy:
+    type: Recreate
+  template:
+    metadata:
+      labels:
+        app: tado-exporter
+    spec:
+      containers:
+        - image: ekofr/tado-exporter:latest
+          name: tado-exporter
+          env:
+            - name: EXPORTER_USERNAME
+              valueFrom:
+                secretKeyRef:
+                  name: tado
+                  key: username
+            - name: EXPORTER_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: tado
+                  key: password
+          ports:
+            - containerPort: 9898
+          resources: {}
+      restartPolicy: Always
+
