@@ -5,6 +5,7 @@ metadata:
   name: tado-exporter
   labels:
     app: tado-exporter
+    test: 1
 
 spec:
   replicas: 1
