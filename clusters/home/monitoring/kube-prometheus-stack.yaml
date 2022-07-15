@@ -12,7 +12,7 @@ spec:
       sourceRef:
         kind: HelmRepository
         name: prometheus-community
-  interval: 1m0s
+  interval: 1h0m0s
   values:
     grafana:
       env:
