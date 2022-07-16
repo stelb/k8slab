@@ -50,8 +50,8 @@ spec:
 
     prometheus:
       # 4w (4*7*24h)
-      retention: 672h
       prometheusSpec:
+        retention: 672h
         NamespaceSelector:
           any: true
         storageSpec:
