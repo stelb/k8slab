@@ -1,0 +1,33 @@
+---
+apiVersion: helm.toolkit.fluxcd.io/v2beta1
+kind: HelmRelease
+metadata:
+  name: external-dns-cloud
+  namespace: external-dns
+spec:
+  chart:
+    spec:
+      chart: external-dns/external-dns
+      reconcileStrategy: ChartVersion
+      sourceRef:
+        kind: HelmRepository
+        name: external-dns
+  interval: 30m0s
+  values:
+    domainFilter: stelb.cloud
+    env:
+    - name: EXTERNAL_DNS_GODADDY_API_KEY
+      valueFrom:
+        secretKeyRef:
+          key: api-key
+          name: godaddy
+    - name: EXTERNAL_DNS_GODADDY_API_SECRET
+      valueFrom:
+        secretKeyRef:
+          key: api-secret
+          name: godaddy
+    logLevel: debug
+    provider: godaddy
+    source: ingress
+    txtOwnerId: front
+
