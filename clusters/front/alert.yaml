@@ -4,6 +4,7 @@ metadata:
   name: on-call-webapp
   namespace: flux-system
 spec:
+  summary: "front alert"
   providerRef:
     name: discord
   eventSeverity: info
