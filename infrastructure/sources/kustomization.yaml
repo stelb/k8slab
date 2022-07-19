@@ -5,3 +5,4 @@ resources:
   - external-dns-repo.yaml
   - prometheus-community-repo.yaml
   - sealed-secrets-repo.yaml
+  - bitnami-repo.yaml
