@@ -7,3 +7,4 @@ resources:
   - sealed-secrets-repo.yaml
   - bitnami-repo.yaml
   - metallb-repo.yaml
+  - longhorn-repo.yaml
