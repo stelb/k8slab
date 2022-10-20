@@ -9,4 +9,9 @@ spec:
   ref:
     branch: master
   url: https://github.com/operator-framework/operator-lifecycle-manager.git
+  ignore: |
+    # exclude all
+    /*
+    # include deploy dir
+    !/deploy/upstream/quickstart
 
